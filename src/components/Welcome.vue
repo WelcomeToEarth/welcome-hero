@@ -21,7 +21,7 @@ export default {
     return {
       // countup配置项
       options: {
-        startVal: 1000,
+        startVal: 1,
         duration: 3,
         prefix: '我是第',
         suffix: '位点赞者'
@@ -31,7 +31,7 @@ export default {
     }
   },
   mounted (){
-    this.getWelcomes()
+    // this.getWelcomes()
   },
   methods: {
     initCountUp () {
@@ -42,20 +42,19 @@ export default {
         console.error(demo.error)
       }
     },
-    getWelcomes () {
-      axios.get('/2019ncov/praise/get', {})
-        .then(function (response) {
-          console.log(response)
-        }).catch(function (error) {
-          console.log(error)
-        });
-    },
     setWelcomes () {
-      // fetch()
+      axios
+        .get('/2019ncov/praise/put')
+        .then(response => {
+          console.log(response)
+          const ret = response.data
+          this.endCount = ret.data
+          this.initCountUp()
+        })
     },
     tapToChear () {
       this.isActive = !this.isActive
-      this.initCountUp()
+      this.setWelcomes()
     }  
   }  
 }
