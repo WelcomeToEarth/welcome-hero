@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="heartAnimation" :class="{ active: isActive }" @click="tapToChear"></div>
-    <h1>      
+    <h1 style="padding: 4rem;">      
       <span
         ref='countup'
         class="text"
@@ -12,6 +12,7 @@
 
 <script>
 import { CountUp } from 'countup.js'
+import axios from 'axios'
 export default {
   name: 'Welcome',
   props: {
@@ -30,6 +31,7 @@ export default {
     }
   },
   mounted (){
+    this.getWelcomes()
   },
   methods: {
     initCountUp () {
@@ -41,7 +43,12 @@ export default {
       }
     },
     getWelcomes () {
-      // fetch()
+      axios.get('/2019ncov/praise/get', {})
+        .then(function (response) {
+          console.log(response)
+        }).catch(function (error) {
+          console.log(error)
+        });
     },
     setWelcomes () {
       // fetch()

@@ -6,7 +6,7 @@ module.exports = {
     productionSourceMap: false,
     devServer: {
         proxy: {
-            '/xrk':{
+            '/2019ncov':{
                 target:'https://br.xinhua-news.cn/',
                 changeOrigin:true
             }
