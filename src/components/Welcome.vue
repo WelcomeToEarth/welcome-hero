@@ -1,7 +1,6 @@
 <template>
   <div class="container">
-    <button @click="welcome">点赞</button>
-    <h2 class="test">jquery 测试</h2>
+    <div class="heartAnimation" :class="{ active: isActive }" @click="tapToChear"></div>
     <h1>      
       <span
         ref='countup'
@@ -13,7 +12,6 @@
 
 <script>
 import { CountUp } from 'countup.js'
-import $ from 'jquery'
 export default {
   name: 'Welcome',
   props: {
@@ -27,16 +25,13 @@ export default {
         prefix: '我是第',
         suffix: '位点赞者'
       },
-      endCount: 2019
+      endCount: 2019,
+      isActive: false
     }
   },
   mounted (){
-    console.log($);
   },
   methods: {
-    welcome () {
-      this.initCountUp()
-    },
     initCountUp () {
       let demo = new CountUp(this.$refs.countup, this.endCount, this.options)
       if (!demo.error) {
@@ -50,7 +45,11 @@ export default {
     },
     setWelcomes () {
       // fetch()
-    }
+    },
+    tapToChear () {
+      this.isActive = !this.isActive
+      this.initCountUp()
+    }  
   }  
 }
 </script>
@@ -65,5 +64,38 @@ export default {
 .text {
   color: #4d63bc;
   font-size: 16px;
+}
+.heartAnimation {
+  position: absolute;
+  background-image: url(./../assets/heart.png);
+  background-position: left;
+  background-repeat: no-repeat;
+  /*background-size: 2900%;*/
+  height: 100px;
+  width: 100px;
+  left: 50%;
+  top: 50%;
+  -ms-transform: translate(-50%, -47.5%);
+  transform: translate(-50%, -47.5%)
+}
+
+.active {
+  animation-timing-function: steps(28);
+  animation-name: heart-burst;
+  animation-duration: 2s;
+  animation-iteration-count: 1;
+  display: inline-block;
+  animation-fill-mode: forwards;
+
+}
+
+@keyframes heart-burst {
+  0% {
+    background-position: left
+  }
+
+  100% {
+    background-position: right
+  }
 }
 </style>
