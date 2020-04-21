@@ -8,10 +8,12 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "animate.css": "^3.7.2",
     "core-js": "^3.6.4",
     "countup.js": "^2.0.4",
     "fastclick": "^1.0.6",
     "jquery": "^3.5.0",
+    "vant": "^2.6.3",
     "vue": "^2.6.11",
     "vue-countup-v2": "^4.0.0"
   },
@@ -21,6 +23,7 @@
     "@vue/cli-service": "~4.3.0",
     "axios": "^0.18.0",
     "babel-eslint": "^10.1.0",
+    "babel-plugin-import": "^1.13.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "vue-cli-plugin-axios": "0.0.4",
@@ -38,7 +41,9 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {
+      "no-unused-vars": "off"
+    }
   },
   "browserslist": [
     "> 1%",
