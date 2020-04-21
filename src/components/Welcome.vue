@@ -1,12 +1,11 @@
 <template>
   <div class="container">
-    <!-- <div class="heartAnimation" :class="{ active: isActive }" @click="tapToChear"></div> -->
     <img src="./../assets/text.png" alt="" class="text-img animated bounceInUp"> 
     <img src="./../assets/bottom.png" alt="" class="bottom-img">
     <div class="people-wriper">
-      <img src="./../assets/people1.png" alt="" class="people1-img">
+      <img src="./../assets/people1.png" alt="" class="people1-img animated bounceInLeft" style="animation-duration: 1.5s;">
       <img src="./../assets/people2.png" alt="" class="people2-img animated slideInUp">
-      <img src="./../assets/people3.png" alt="" class="people3-img">
+      <img src="./../assets/people3.png" alt="" class="people3-img animated lightSpeedIn" style="animation-duration: 0.5s;">
     </div> 
     <transition name="fade">
       <div class="flower-wriper" v-show="isActive">
@@ -14,8 +13,9 @@
       </div>
     </transition>
     <div class="footer-wriper" v-show="isActive">
-      <img src="./../assets/button.png" alt="" class="button-img" v-if="isClick" @click="chearUp" :class="{ animated: isActive, heartBeat: isActive }">
-      <img src="./../assets/clicked.png" alt="" class="button-img"  v-if="!isClick" @click="chearUp" :class="{ animated: isActive, heartBeat: isActive }">
+      <div class="result animated fadeOutUp" v-if="isResult" style="animation-duration: 4s;"> {{result}} </div>
+      <img src="./../assets/clicked.png" alt="" class="button-img" v-if="!isResult" @click="setWelcomes" :class="{ animated: isActive, zoomIn: isActive }" style="animation-duration: 0.2s;">
+      <img src="./../assets/button.png" alt="" class="button-img"  v-if="isResult" @click="chearUp">
     </div>  
   </div>
 </template>
@@ -39,7 +39,8 @@ export default {
       },
       endCount: 0,
       isActive: false,
-      isClick: true
+      isClick: true,
+      isResult: false
     }
   },
   mounted (){
@@ -47,6 +48,11 @@ export default {
     setTimeout(()=>{
       this.isActive = true
     },1000)
+  },
+  computed: {
+    result: function () {
+      return `我是第${this.endCount}位点赞者`
+    }
   },
   methods: {
     initCountUp () {
@@ -64,12 +70,13 @@ export default {
           console.log(response)
           const ret = response.data
           this.endCount = ret.data
-          Notify({
-            message: `我是第${ret.data}位点赞者`,
-            color: '#fff',
-            background: '#4b54e1',
-            duration: 500,
-          });
+          this.isResult = !this.isResult
+          // Notify({
+          //   message: `我是第${ret.data}位点赞者`,
+          //   color: '#fff',
+          //   background: '#4b54e1',
+          //   duration: 500,
+          // });
           // this.initCountUp()
         })
     },
@@ -78,8 +85,8 @@ export default {
       // this.setWelcomes()
     },
     chearUp() {
-      this.isClick && this.setWelcomes()
-      this.isClick = !this.isClick
+      // this.setWelcomes()
+      this.isResult = !this.isResult
     },
     destroyed() {
       
@@ -90,6 +97,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.animated {
+    animation-duration: 1.0s;
+    animation-fill-mode: both;
+}
 .container{
   width: 100%;
   height: 100vh;
@@ -179,6 +191,19 @@ export default {
   width: 35%;
   bottom: 1%;
   z-index: 3;
+}
+
+.result{
+  position: absolute;
+  bottom: 20%;
+  width: 10rem;
+  height: 2rem;
+  line-height: 2rem;
+  background-color: #3f35b1;
+  z-index: 2;
+  border-radius: 1rem;
+  color: azure;
+  font-size: 0.8rem;
 }
 
 @keyframes heart-burst {
