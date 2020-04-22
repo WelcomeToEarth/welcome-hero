@@ -45,6 +45,7 @@ export default {
     }
   },
   mounted (){
+<<<<<<< HEAD
     // this.setWelcomes()
     setTimeout(()=>{
       this.isActive = true
@@ -54,6 +55,9 @@ export default {
     result: function () {
       return `我是第${this.endCount}位点赞者`
     }
+=======
+    // this.getWelcomes()
+>>>>>>> origin/master
   },
   methods: {
     initCountUp () {
@@ -65,18 +69,26 @@ export default {
       }
     },
     setWelcomes () {
+<<<<<<< HEAD
       this.isResult = false
+=======
+>>>>>>> origin/master
       axios
         .get('/2019ncov/praise/put')
         .then(response => {
           console.log(response)
           const ret = response.data
           this.endCount = ret.data
+<<<<<<< HEAD
           this.isResult = true
+=======
+          this.initCountUp()
+>>>>>>> origin/master
         })
     },
     tapToChear () {
       this.isActive = !this.isActive
+<<<<<<< HEAD
     },
     chearUp() {
       this.isResult = !this.isResult
@@ -84,6 +96,10 @@ export default {
     destroyed() {
       
     },
+=======
+      this.setWelcomes()
+    }  
+>>>>>>> origin/master
   }  
 }
 </script>
