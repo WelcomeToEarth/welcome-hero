@@ -2,8 +2,9 @@
     <div class="container">
         <div class="footer-wriper" v-show="isActive">
             <div class="result animated fadeOutUp" v-if="isResult" style="animation-duration: 4s;"> {{result}} </div>
-            <img src="./../assets/web/clicked.png" alt="" class="button-img" v-if="!isResult" @click="setWelcomes" :class="{ animated: isActive, zoomIn: isActive }" style="animation-duration: 0.2s;">
-            <img src="./../assets/web/button.png" alt="" class="button-img"  v-if="isResult" @click="chearUp">
+            <!-- <img src="./../assets/web/clicked.png" alt="" class="button-img" v-if="!isResult" @click="setWelcomes" :class="{ animated: isActive, zoomIn: isActive }" style="animation-duration: 0.2s;">
+            <img src="./../assets/web/button.png" alt="" class="button-img"  v-if="isResult" @click="chearUp"> -->
+            <van-button round type="primary" icon="good-job-o" color="linear-gradient(to right, #4bb0ff, #6149f6)" class="button-img" @click="setWelcomes" :class="{ animated: isActive, zoomIn: isActive }" style="animation-duration: 0.2s;"></van-button>
         </div> 
     </div>
 </template>
@@ -33,13 +34,14 @@ export default {
     },
     methods: {
         setWelcomes () {
+            this.isResult = false
             axios
                 .get('/2019ncov/praise/put')
                 .then(response => {
                     console.log(response)
                     const ret = response.data
                     this.endCount = ret.data
-                    this.isResult = !this.isResult
+                    this.isResult = true
                 })
         },
         chearUp() {
@@ -63,9 +65,8 @@ export default {
 .button-img{
   position: absolute;
   background-repeat: no-repeat;
-  width: 75px;
   left: 20px;
-  bottom: 40px;
+  bottom: 70px;
 }
 
 .result{

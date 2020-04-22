@@ -5,7 +5,7 @@
     <div class="people-wriper">
       <img src="./../assets/people1.png" alt="" class="people1-img animated bounceInLeft" style="animation-duration: 1.5s;">
       <img src="./../assets/people2.png" alt="" class="people2-img animated slideInUp">
-      <img src="./../assets/people3.png" alt="" class="people3-img animated lightSpeedIn" style="animation-duration: 0.5s;">
+      <img src="./../assets/people3.png" alt="" class="people3-img animated slideInRight" style="animation-duration: 1.5s;">
     </div> 
     <transition name="fade">
       <div class="flower-wriper" v-show="isActive">
@@ -14,15 +14,16 @@
     </transition>
     <div class="footer-wriper" v-show="isActive">
       <div class="result animated fadeOutUp" v-if="isResult" style="animation-duration: 4s;"> {{result}} </div>
-      <img src="./../assets/clicked.png" alt="" class="button-img" v-if="!isResult" @click="setWelcomes" :class="{ animated: isActive, zoomIn: isActive }" style="animation-duration: 0.2s;">
-      <img src="./../assets/button.png" alt="" class="button-img"  v-if="isResult" @click="chearUp">
+      <!-- <img src="./../assets/clicked.png" alt="" class="button-img" v-if="!isResult" @click="setWelcomes" :class="{ animated: isActive, zoomIn: isActive }" style="animation-duration: 0.2s;">
+      <img src="./../assets/button.png" alt="" class="button-img"  v-if="isResult" @click="chearUp"> -->
+        <van-button round type="primary" icon="good-job-o" color="linear-gradient(to right, #4bb0ff, #6149f6)" class="button-img" @click="setWelcomes" :class="{ animated: isActive, zoomIn: isActive }" style="animation-duration: 0.2s;"></van-button>
     </div>  
   </div>
 </template>
 
 <script>
 import { CountUp } from 'countup.js'
-import { Notify } from 'vant';
+import { Notify,Button  } from 'vant';
 import axios from 'axios'
 export default {
   name: 'Welcome',
@@ -64,28 +65,20 @@ export default {
       }
     },
     setWelcomes () {
+      this.isResult = false
       axios
         .get('/2019ncov/praise/put')
         .then(response => {
           console.log(response)
           const ret = response.data
           this.endCount = ret.data
-          this.isResult = !this.isResult
-          // Notify({
-          //   message: `我是第${ret.data}位点赞者`,
-          //   color: '#fff',
-          //   background: '#4b54e1',
-          //   duration: 500,
-          // });
-          // this.initCountUp()
+          this.isResult = true
         })
     },
     tapToChear () {
       this.isActive = !this.isActive
-      // this.setWelcomes()
     },
     chearUp() {
-      // this.setWelcomes()
       this.isResult = !this.isResult
     },
     destroyed() {
@@ -188,8 +181,8 @@ export default {
 .button-img{
   position: absolute;
   background-repeat: no-repeat;
-  width: 35%;
-  bottom: 1%;
+  /* width: 35%; */
+  bottom: 7%;
   z-index: 3;
 }
 

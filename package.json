@@ -15,7 +15,9 @@
     "jquery": "^3.5.0",
     "vant": "^2.6.3",
     "vue": "^2.6.11",
-    "vue-countup-v2": "^4.0.0"
+    "vue-countup-v2": "^4.0.0",
+    "vue-star": "0.0.4",
+    "vue-star-plus": "^1.2.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.3.0",
